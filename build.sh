@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Check if 'build' directory exists, create it if not
 if [[ -d build ]]; then
     echo "Build dir exists"
 else
@@ -8,7 +7,6 @@ else
     echo "Build dir created"
 fi
 
-# Check if main.out exists, remove it if found
 if [[ -f build/main.out ]]; then
     rm build/main.out
     echo "Removed build/main.out"
@@ -19,14 +17,11 @@ if [[ -f build/out.ppm ]]; then
     echo "Removed old out.ppm"
 fi
 
-# Compile main.c 
-gcc -Wall -Wextra main.c -o build/main.out
+gcc -Wall -Wextra src/main.c -o build/main.out
 echo "Built main.out"
 
-# Run the program and generate the out.ppm file
-./build/main.out > build/out.ppm
-echo "Generated out.ppm"
+./build/main.out 
+echo "Generated out.png"
 
-# Display the generated image using feh
 echo "TADAAAAAAA"
-feh build/out.ppm
+feh out.png
