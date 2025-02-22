@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [[ -d build ]]; then
-    echo "Build dir exists"
-else
+if [[ ! -d build ]]; then
     mkdir build
     echo "Build dir created"
+else
+    echo "Build dir exists"
 fi
 
 if [[ -f build/main.out ]]; then
@@ -12,16 +12,17 @@ if [[ -f build/main.out ]]; then
     echo "Removed build/main.out"
 fi
 
-if [[ -f build/out.ppm ]]; then
-    rm build/out.ppm
-    echo "Removed old out.ppm"
+if [[ -f build/out.png ]]; then
+    rm build/out.png
+    echo "Removed old build/out.png"
 fi
 
 gcc -Wall -Wextra src/main.c -o build/main.out
 echo "Built main.out"
 
-./build/main.out 
-echo "Generated out.png"
+(cd build && ./main.out)
+echo "Generated build/out.png"
 
 echo "TADAAAAAAA"
-feh out.png
+feh build/out.png
+
