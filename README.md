@@ -2,6 +2,17 @@ Implementing a software renderer to understand topics like
 rasterization,raytracing and other stuff, goal is to learn 
 more about graphics and then move onto graphics APIs
 
+# Run
+
+## Linux
+```
+./build.sh
+```
+## Windows
+```
+.\build.bat
+```
+
 # Resources
 
 - [tinyrenderer](https://github.com/ssloy/tinyrenderer/wiki/Lesson-0:-getting-started)
