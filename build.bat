@@ -18,14 +18,16 @@ if exist build\out.png (
     echo Removed old build\out.png
 )
 
-gcc -Wall -Wextra src/main.c -o build\main.exe
-echo Built main.exe
+gcc -Wall -Wextra src\main.c -o build\main.exe -lm
 
-pushd build
-main.exe
-popd
+if exist build\main.exe (
+    echo Built main.exe
+    cd build
+    main.exe
+    cd ..
+    echo Generated build\out.png
 
-echo Generated build\out.png
+    echo TADAAAAAAA
+    start build\out.png
+)
 
-echo TADAAAAAAA
-start build\out.png
