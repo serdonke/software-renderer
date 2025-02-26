@@ -6,18 +6,18 @@
 
 #include "goo.c"
 
-int main(int argc, int argv[]) {
-    size_t height = 512;
-    size_t width  = 512;
-    uint8_t* image = malloc(height * width * 3);
+int main(void) {
+    uint8_t* image = malloc(HEIGHT * WIDTH * 3);
     if(!image) {
         fprintf(stderr, "Failed to allocate memory for the image\n");
         return -1;
     }
 
-    gooFill(image, height, width, 255, 155, 55);
+    gooFill(image, 0, 0, 0);
+    gooDrawLineNaive(image, 0, 0, 300, 300);
+    gooDrawLineNaive(image, 393, 300, 500, 432);
 
-    if(!stbi_write_png("out.png", width, height, 3, image, width * 3))
+    if(!stbi_write_png("out.png", WIDTH, HEIGHT, 3, image, WIDTH * 3))
     {
         fprintf(stderr, "Failed to write image to disk\n");
         return -2;

@@ -17,12 +17,15 @@ if [[ -f build/out.png ]]; then
     echo "Removed old build/out.png"
 fi
 
-gcc -Wall -Wextra src/main.c -o build/main.out
-echo "Built main.out"
+gcc -Wall -Wextra src/main.c -o build/main.out -lm
 
-(cd build && ./main.out)
-echo "Generated build/out.png"
+if [[ -x build/main.out ]]; then
+    echo "Built main.out"
+    (cd build && ./main.out)
+    echo "Generated build/out.png"
 
-echo "TADAAAAAAA"
-feh build/out.png
+    echo "TADAAAAAAA"
+    feh build/out.png
+fi
+
 
