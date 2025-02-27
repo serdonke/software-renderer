@@ -12,10 +12,12 @@ int main(void) {
         fprintf(stderr, "Failed to allocate memory for the image\n");
         return -1;
     }
+    Color black = {0, 0, 0};
+    Color red = {255, 0, 0};
 
-    gooFill(image, 0, 0, 0);
-    gooDrawLineNaive(image, 0, 0, 300, 300);
-    gooDrawLineNaive(image, 393, 300, 500, 432);
+    gooFill(image, black);
+    gooDrawLineNaive(image, 0, 0, 300, 300, red);
+    gooDrawLineNaive(image, 393, 300, 500, 432, red);
 
     if(!stbi_write_png("out.png", WIDTH, HEIGHT, 3, image, WIDTH * 3))
     {
