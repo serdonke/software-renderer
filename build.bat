@@ -27,7 +27,6 @@ if exist build\main.exe (
     cd ..
     echo Generated build\out.png
 
-    echo TADAAAAAAA
-    start build\out.png
+    mspaint build\out.png
 )
 
