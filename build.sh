@@ -24,7 +24,6 @@ if [[ -x build/main.out ]]; then
     (cd build && ./main.out)
     echo "Generated build/out.png"
 
-    echo "TADAAAAAAA"
     feh build/out.png
 fi
 

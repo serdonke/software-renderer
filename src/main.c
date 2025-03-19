@@ -15,8 +15,8 @@ int main(void) {
         return -1;
     }
     // welp blessings of using .sh file as a build system
-    loadOBJ("../src/assets/untitled.obj");
-    printf("Loaded file assets/untitled.obj with triangle count: %d\n", triangle_count);
+    loadOBJ("../src/assets/cube.obj");
+    printf("Loaded file assets/cube.obj with triangle count: %d\n", triangle_count);
 
     gooFill(image, GRUVBOX_BG);
 
