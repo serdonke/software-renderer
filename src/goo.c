@@ -6,8 +6,8 @@
 #include <stdint.h>
 #include <math.h>
 
-#define WIDTH  2048
-#define HEIGHT 2048
+#define WIDTH  1024
+#define HEIGHT 1024
 
 typedef struct Color {
     uint8_t r;

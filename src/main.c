@@ -1,7 +1,7 @@
-#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stdio.h>
 #include <stdlib.h>
 
+#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
 #include "goo.c"
@@ -37,19 +37,19 @@ static void get_file_data(void* ctx, const char* filename, const int is_mtl,
     fclose(file);
 }
 
-void renderOBJ(uint8_t* image, const char* filename) {
+void renderOBJ(uint8_t* image, const char* filename, float scale) {
     tinyobj_attrib_t attrib;
     tinyobj_shape_t* shapes = NULL;
     tinyobj_material_t* materials = NULL;
     size_t num_shapes, num_materials;
 
     tinyobj_attrib_init(&attrib);
-    unsigned int flags = TINYOBJ_FLAG_TRIANGULATE;
+    //unsigned int flags = TINYOBJ_FLAG_TRIANGULATE;
 
     if (tinyobj_parse_obj(&attrib, &shapes, &num_shapes, 
                           &materials, &num_materials, 
                           filename, get_file_data, 
-                          NULL, flags) != TINYOBJ_SUCCESS) {
+                          NULL, 0) != TINYOBJ_SUCCESS) {
         fprintf(stderr, "Failed to load OBJ file: %s\n", filename);
         return;
     }
@@ -75,12 +75,12 @@ void renderOBJ(uint8_t* image, const char* filename) {
             float x1 = attrib.vertices[v1 * 3 + 0];
             float y1 = attrib.vertices[v1 * 3 + 1];
 
-            int sx0 = (int)((x0 + 1.0) * WIDTH / 2.0);
-            int sy0 = HEIGHT - (int)((y0 + 1.0) * HEIGHT / 2.0);
-            int sx1 = (int)((x1 + 1.0) * WIDTH / 2.0);
-            int sy1 = HEIGHT - (int)((y1 + 1.0) * HEIGHT / 2.0);
+            int sx0 = (int)((x0 + scale / 2) * WIDTH / scale);
+            int sy0 = HEIGHT - (int)((y0 + scale / 2) * HEIGHT / scale);
+            int sx1 = (int)((x1 + scale / 2) * WIDTH / scale);
+            int sy1 = HEIGHT - (int)((y1 + scale / 2) * HEIGHT / scale);
 
-            gooDrawLineNaive(image, sx0, sy0, sx1, sy1, GRUVBOX_GREEN);
+            gooDrawLineNaive(image, sx0, sy0, sx1, sy1, GRUVBOX_PURPLE);
         }
     }
 
@@ -98,7 +98,7 @@ int main(void) {
     }
 
     gooFill(image, GRUVBOX_BG);
-    renderOBJ(image, "../src/assets/african_head.obj");
+    renderOBJ(image, "../src/assets/Untitled.obj", 2);
 
     if (!stbi_write_png("out.png", WIDTH, HEIGHT, 4, image, WIDTH * 4)) {
         fprintf(stderr, "Failed to write image to disk\n");
