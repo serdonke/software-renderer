@@ -18,6 +18,10 @@ more about graphics and then move onto graphics APIs
 ## Features
 - Draw lines
     - Naive algorithm
+- Draw triangles
+    - Wireframe
+    - Filled
+        - Scanline
 
 # Resources
 - [Computer Graphics From Scratch-Gabriel Gambetta](https://gabrielgambetta.com/computer-graphics-from-scratch/index.html)

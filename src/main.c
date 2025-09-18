@@ -14,7 +14,8 @@ static void get_file_data(void* ctx, const char* filename, const int is_mtl,
     (void)ctx; (void)is_mtl; (void)obj_filename;  // Unused params
 
     FILE* file = fopen(filename, "rb");
-    if (!file) {
+    if (!file)
+    {
         fprintf(stderr, "Failed to open file: %s\n", filename);
         *data = NULL;
         *len = 0;
@@ -26,7 +27,8 @@ static void get_file_data(void* ctx, const char* filename, const int is_mtl,
     fseek(file, 0, SEEK_SET);
 
     *data = malloc(*len + 1);
-    if (!*data) {
+    if (!*data)
+    {
         fprintf(stderr, "Memory allocation failed\n");
         fclose(file);
         return;
@@ -49,7 +51,8 @@ void renderOBJ(uint8_t* image, const char* filename, float scale) {
     if (tinyobj_parse_obj(&attrib, &shapes, &num_shapes, 
                           &materials, &num_materials, 
                           filename, get_file_data, 
-                          NULL, 0) != TINYOBJ_SUCCESS) {
+                          NULL, 0) != TINYOBJ_SUCCESS)
+    {
         fprintf(stderr, "Failed to load OBJ file: %s\n", filename);
         return;
     }
@@ -58,14 +61,16 @@ void renderOBJ(uint8_t* image, const char* filename, float scale) {
             (int)(attrib.num_vertices / 3), 
             (int)(attrib.num_faces / 3));
 
-    for (size_t i = 0; i < attrib.num_faces; i += 3) {
+    for (size_t i = 0; i < attrib.num_faces; i += 3)
+    {
         int indices[3] = {
             attrib.faces[i + 0].v_idx,
             attrib.faces[i + 1].v_idx,
             attrib.faces[i + 2].v_idx
         };
 
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < 3; j++)
+        {
             int v0 = indices[j];
             int v1 = indices[(j + 1) % 3];
 
@@ -89,7 +94,9 @@ void renderOBJ(uint8_t* image, const char* filename, float scale) {
     free(shapes);
     free(materials);
 }
-int main(void) {
+
+int main(void)
+{
     uint8_t* image = malloc(HEIGHT * WIDTH * 4);
     if(!image)
     {
@@ -98,9 +105,22 @@ int main(void) {
     }
 
     gooFill(image, GRUVBOX_BG);
-    renderOBJ(image, "../src/assets/Untitled.obj", 2);
+    //renderOBJ(image, "../src/assets/Untitled.obj", 2);
+    
+    Triangle triangles[] = {
+        {{100, 100}, {300, 700}, {500, 300}},   // Red Triangle
+        {{700, 150}, {650, 50}, {400, 850}},    // White Triangle
+        {{800, 500}, {600, 750}, {900, 900}}    // Green Triangle
+    };
 
-    if (!stbi_write_png("out.png", WIDTH, HEIGHT, 4, image, WIDTH * 4)) {
+    //gooDrawTriangleFilled(image, trongle, GRUVBOX_FG);
+    for(int i = 0; i < 3; i++)
+    {
+        gooDrawTriangleScanline(image, triangles[i], GRUVBOX_FG);
+    }
+
+    if (!stbi_write_png("out.png", WIDTH, HEIGHT, 4, image, WIDTH * 4))
+    {
         fprintf(stderr, "Failed to write image to disk\n");
         return -2;
     }
